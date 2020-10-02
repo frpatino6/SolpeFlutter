@@ -24,8 +24,12 @@ class CreateLoginFormInputs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     _pwsController.text = "";
     _usernameController.text = "";
+=======
+    
+>>>>>>> 5aba3fe846b63eaf591250e30ab31a18831c6dac
 
     final size = MediaQuery.of(context).size;
     return Column(
