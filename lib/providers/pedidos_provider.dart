@@ -25,7 +25,7 @@ class PedidosProvider {
       Response response;
 
       String url =
-          DioProvider.instance.urlDatabase + '/solpe/GetLiberaSolpes/APOSADA';
+          DioProvider.instance.urlDatabase + '/solpe/GetLiberaSolpes/$user';
 
       DioProvider.instance.setHeader(dio);
 
