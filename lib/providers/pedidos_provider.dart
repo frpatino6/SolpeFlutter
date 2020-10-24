@@ -25,7 +25,7 @@ class PedidosProvider {
       Response response;
 
       String url =
-          DioProvider.instance.urlDatabase + '/solpe/GetLiberaSolpes/${user}';
+          DioProvider.instance.urlDatabase + '/solpe/GetLiberaSolpes/APOSADA';
 
       DioProvider.instance.setHeader(dio);
 
@@ -60,8 +60,8 @@ class PedidosProvider {
       var dio = Dio();
       Response response;
 
-      String url = DioProvider.instance.urlDatabase +
-          '/solpe/UpdatePedidoState/${num}';
+      String url =
+          DioProvider.instance.urlDatabase + '/solpe/UpdatePedidoState/${num}';
 
       DioProvider.instance.setHeader(dio);
 
@@ -95,7 +95,7 @@ class PedidosProvider {
 
   setCurrencyFormat(dynamic value) {
     final formatCurrency =
-    new NumberFormat.currency(name: "\$", decimalDigits: 2);
+        new NumberFormat.currency(name: "\$", decimalDigits: 2);
     return formatCurrency.format(value);
   }
 }

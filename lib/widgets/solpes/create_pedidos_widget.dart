@@ -74,8 +74,12 @@ class _CreatePedidosState extends State<CreatePedidos> {
     }
   }
 
-  Widget _createListData(BuildContext _context, List<PedidosResponse> _response,
-      int countLines, double totalPedido, List<PedidosResponse> response) {
+  Widget _createListData(
+      BuildContext _context,
+      Map<dynamic, List<PedidosResponse>> _response,
+      int countLines,
+      double totalPedido,
+      List<PedidosResponse> response) {
     return RefreshIndicator(
       onRefresh: () => _callGetLiberaSolpes(),
       child: ListView.separated(
@@ -105,7 +109,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: InkWell(
                                   child: Text(
-                                    ' ${_response[index].texto}',
+                                    ' ${response[index].texto}',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.redAccent,
@@ -122,8 +126,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
                           Row(
                             children: [
                               Container(
-                                width:
-                                    MediaQuery.of(_context).size.width * 0.4,
+                                width: MediaQuery.of(_context).size.width * 0.4,
                                 child: Row(
                                   children: [
                                     Text(
@@ -138,7 +141,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
                               Container(
                                 child: InkWell(
                                   child: Text(
-                                    ' ${_response[index].numero}',
+                                    ' ${response[index].numero}',
                                     style: TextStyle(
                                         color: textInfoColor,
                                         fontSize: widget._fontSizeInfo),
@@ -153,8 +156,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
                           Row(
                             children: [
                               Container(
-                                width:
-                                    MediaQuery.of(_context).size.width * 0.4,
+                                width: MediaQuery.of(_context).size.width * 0.4,
                                 child: Row(
                                   children: [
                                     Text(
@@ -169,7 +171,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
                               Container(
                                 child: InkWell(
                                   child: Text(
-                                    ' $countLines',
+                                    '${_response.values.toList()[index].length}',
                                     style: TextStyle(
                                         color: textInfoColor,
                                         fontSize: widget._fontSizeInfo),
@@ -184,8 +186,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
                           Row(
                             children: [
                               Container(
-                                width:
-                                    MediaQuery.of(_context).size.width * 0.4,
+                                width: MediaQuery.of(_context).size.width * 0.4,
                                 child: Row(
                                   children: [
                                     Text('VALOR TOTAL:: ',
@@ -198,7 +199,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
                               Container(
                                 child: InkWell(
                                   child: Text(
-                                    ' ${PedidosProvider.instance.setCurrencyFormat(totalPedido)}',
+                                    ' ${PedidosProvider.instance.setCurrencyFormat(response[index].valor)}',
                                     style: TextStyle(
                                         color: labelColor,
                                         fontSize: widget._fontSizeInfo),
@@ -228,7 +229,8 @@ class _CreatePedidosState extends State<CreatePedidos> {
                                   onPressed: () {
                                     Navigator.pushNamed(
                                         _context, DetallePedido.routeName,
-                                        arguments: response);
+                                        arguments:
+                                            _response.values.toList()[index]);
                                   },
                                 ),
                               ),
@@ -247,8 +249,8 @@ class _CreatePedidosState extends State<CreatePedidos> {
                                   child: Text('Liberar'),
                                   onPressed: () {
                                     _callUpdateSolpeState(
-                                        _response[index].numero,
-                                        _response[index].posicion);
+                                        response[index].numero,
+                                        response[index].posicion);
                                   },
                                 ),
                               ),
@@ -281,7 +283,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
       totalPedido += element.valor * element.cantidad;
     });
     return _createListData(
-        _context, pedidosGroup, response.length, totalPedido, response);
+        _context, _pedidosGroup, response.length, totalPedido, response);
   }
 
   Future<void> _callGetLiberaSolpes() async {
