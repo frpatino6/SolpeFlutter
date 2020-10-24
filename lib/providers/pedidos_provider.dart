@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:intl/intl.dart';
+
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:rcn_solpe/models/pedidos_response.dart';
 import 'package:rcn_solpe/providers/dio_provider.dart';
 
@@ -25,7 +26,7 @@ class PedidosProvider {
       Response response;
 
       String url =
-          DioProvider.instance.urlDatabase + '/solpe/GetLiberaSolpes/APOSADA';
+          DioProvider.instance.urlDatabase + '/solpe/GetLiberaSolpes/$user';
 
       DioProvider.instance.setHeader(dio);
 
