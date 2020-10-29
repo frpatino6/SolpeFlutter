@@ -27,7 +27,7 @@ class CreateLoginButton extends StatelessWidget {
       ),
       shape: new RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(30.0)),
-      child: Text('Liberar'),
+      child: Text('Ingresar'),
       onPressed: () {
         _onLoginPressed();
       },

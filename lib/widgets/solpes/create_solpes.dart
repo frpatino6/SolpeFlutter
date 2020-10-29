@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rcn_solpe/bloc/pedidos_bloc.dart';
 import 'package:rcn_solpe/helpers/Dialogs.dart';
 import 'package:rcn_solpe/models/pedidos_response.dart';
 import 'package:rcn_solpe/providers/login_provider.dart';
@@ -18,13 +19,11 @@ class CreateSolpes extends StatefulWidget {
         _fontSizeLabel = fontSizeLabel,
         _fontSizeInfo = fontSizeInfo,
         _heightSizedBox = heightSizedBox,
-        _pedidosResponse = pedidosResponse,
         super(key: key);
   final BuildContext _context;
   final double _heightSizedBox;
   final double _fontSizeInfo;
   final double _fontSizeLabel;
-  List<PedidosResponse> _pedidosResponse;
   final String _userName;
 
   @override
@@ -46,8 +45,8 @@ class _CreateSolpesState extends State<CreateSolpes> {
   }
 
   Widget _createInfo(BuildContext _context) {
-    if (widget._pedidosResponse != null) {
-      List<PedidosResponse> response = widget._pedidosResponse;
+    if (bloc.listAllPedidos != null) {
+      List<PedidosResponse> response = bloc.listAllPedidos;
       response = response.where((element) => element.tipoDoc == "S").toList();
       if (response.length > 0) {
         return _createListData(_context, response);
@@ -66,7 +65,7 @@ class _CreateSolpesState extends State<CreateSolpes> {
   Widget _createListData(
       BuildContext _context, List<PedidosResponse> response) {
     return RefreshIndicator(
-      onRefresh: () =>_callGetLiberaSolpes(),
+      onRefresh: () => _callGetLiberaSolpes(),
       child: ListView.separated(
         itemCount: response.length,
         itemBuilder: (context, index) {
@@ -323,27 +322,26 @@ class _CreateSolpesState extends State<CreateSolpes> {
   }
 
   void _callUpdateSolpeState(String numero, int posicion) {
-    Dialogs.showLoadingDialog(context);
+    Dialogs.showLoadingDialogMessage(context, "Liberando pedido");
     PedidosProvider.instance.UpdateSolpeState(numero, posicion).then((value) {
       Navigator.pop(context);
       _processResult(value);
     });
   }
 
-   _processResult(bool value)  {
+  _processResult(bool value) {
     if (value) {
-      _callGetLiberaSolpes(
-      );
+      _callGetLiberaSolpes();
       print(value);
     }
   }
 
-  Future<void> _callGetLiberaSolpes() async{
-    PedidosProvider.instance
-        .fetchPedidos(LoginProvider.instance.userEmail)
-        .then((value) {
+  Future<void> _callGetLiberaSolpes() async {
+    Dialogs.showLoadingDialogMessage(
+        context, "Actualizando pedidos pendientes");
+    bloc.fetchAllPedidos(LoginProvider.instance.userEmail).then((value) {
       setState(() {
-        widget._pedidosResponse = value;
+        Navigator.pop(context);
       });
     });
   }

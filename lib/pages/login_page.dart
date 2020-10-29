@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:rcn_solpe/bloc/pedidos_bloc.dart';
 import 'package:rcn_solpe/helpers/Dialogs.dart';
 import 'package:rcn_solpe/models/login_request.dart';
 import 'package:rcn_solpe/providers/login_provider.dart';
-import 'package:rcn_solpe/providers/pedidos_provider.dart';
 import 'package:rcn_solpe/providers/token_provider.dart';
 import 'package:rcn_solpe/widgets/login/create_background.dart';
 import 'package:rcn_solpe/widgets/login/create_login_form_input.dart';
@@ -108,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _callValidateUser(BuildContext _context, LoginRequest request) {
-    Dialogs.showLoadingDialog(_context);
+    Dialogs.showLoadingDialogMessage(_context, "Validando usuario y contraseña");
     LoginProvider.instance.fetchLogin(request).then((value) {
       print(value);
       Navigator.pop(_context);
@@ -120,12 +120,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _callGetLiberaSolpes(BuildContext _context, String userName) {
-    PedidosProvider.instance
-        .fetchPedidos(userName)
+    Dialogs.showLoadingDialogMessage(_context,"Consultando solpes y pedidos");
+    bloc
+        .fetchAllPedidos(userName)
         .then((value) => _processResponse(_context, value));
   }
 
   _processResponse(BuildContext _context, dynamic value) {
+    Navigator.pop(_context);
     Navigator.pushNamed(_context, "SolpesList", arguments: value);
   }
 }

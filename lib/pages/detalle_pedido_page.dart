@@ -124,8 +124,7 @@ class _DetallePedidoState extends State<DetallePedido> {
                       borderRadius: new BorderRadius.circular(30.0)),
                   child: Text('Regresar'),
                   onPressed: () {
-                    Navigator.pop(context);
-
+                    Navigator.pop(context, false);
                   },
                 ),
               ),
@@ -142,7 +141,8 @@ class _DetallePedidoState extends State<DetallePedido> {
                       borderRadius: new BorderRadius.circular(30.0)),
                   child: Text('Liberar'),
                   onPressed: () {
-                    Dialogs.showLoadingDialog(context);
+                    Dialogs.showLoadingDialogMessage(
+                        context, "Liberando pedido");
                     PedidosProvider.instance
                         .UpdatePedidoState(_listPedidosResponse[0].numero)
                         .then((value) {
