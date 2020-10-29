@@ -27,8 +27,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    _pwsController.text = ""; //"Cualquierc054";
-    _usernameController.text = ""; //"frodriguezp";
+    //_pwsController.text = ""; //"Cualquierc054";
+    //_usernameController.text = ""; //"frodriguezp";
     if (kIsWeb) {
       isWeb = true;
       percentage = 0.40;

@@ -63,6 +63,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
       if (response.length > 0) {
         return _groupPedidos(response, _context);
       } else {
+        //COMENTARIO PRUEBA
         return Center(
           child: Text(
             "No tiene pendiente pedidos por aprobar",
@@ -226,11 +227,12 @@ class _CreatePedidosState extends State<CreatePedidos> {
                                       borderRadius:
                                           new BorderRadius.circular(30.0)),
                                   child: Text('Detalle'),
-                                  onPressed: () {
-                                    Navigator.pushNamed(
+                                  onPressed: () async {
+                                   await  Navigator.pushNamed(
                                         _context, DetallePedido.routeName,
                                         arguments:
                                             _response.values.toList()[index]);
+
                                   },
                                 ),
                               ),

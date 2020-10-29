@@ -125,6 +125,7 @@ class _DetallePedidoState extends State<DetallePedido> {
                   child: Text('Regresar'),
                   onPressed: () {
                     Navigator.pop(context);
+
                   },
                 ),
               ),
@@ -146,6 +147,7 @@ class _DetallePedidoState extends State<DetallePedido> {
                         .UpdatePedidoState(_listPedidosResponse[0].numero)
                         .then((value) {
                       Navigator.pop(context);
+                      Navigator.pop(context, true);
                       print(value);
                     });
                   },
