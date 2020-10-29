@@ -63,7 +63,6 @@ class _CreatePedidosState extends State<CreatePedidos> {
       if (response.length > 0) {
         return _groupPedidos(response, _context);
       } else {
-        //COMENTARIO PRUEBA
         return Center(
           child: Text(
             "No tiene pendiente pedidos por aprobar",
