@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rcn_solpe/bloc/pedidos_bloc.dart';
 import 'package:rcn_solpe/helpers/Dialogs.dart';
 import 'package:rcn_solpe/models/pedidos_response.dart';
 import 'package:rcn_solpe/pages/detalle_pedido_page.dart';
@@ -10,7 +11,6 @@ class CreatePedidos extends StatefulWidget {
   final double _heightSizedBox;
   final double _fontSizeInfo;
   final double _fontSizeLabel;
-  List<PedidosResponse> _pedidosResponse;
   final String _userName;
 
   CreatePedidos(
@@ -26,7 +26,6 @@ class CreatePedidos extends StatefulWidget {
         _fontSizeLabel = fontSizeLabel,
         _fontSizeInfo = fontSizeInfo,
         _heightSizedBox = heightSizedBox,
-        _pedidosResponse = pedidosResponse,
         super(key: key);
 
   @override
@@ -36,6 +35,8 @@ class CreatePedidos extends StatefulWidget {
 class _CreatePedidosState extends State<CreatePedidos> {
   final labelColor = Colors.black54;
   final textInfoColor = Colors.black;
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      new GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
   }
 
   void _callUpdateSolpeState(String numero, int posicion) {
-    Dialogs.showLoadingDialog(context);
+    Dialogs.showLoadingDialogMessage(context, "Liberando pedido");
     PedidosProvider.instance.UpdatePedidoState(numero).then((value) {
       Navigator.pop(context);
       _callGetLiberaSolpes();
@@ -57,8 +58,8 @@ class _CreatePedidosState extends State<CreatePedidos> {
   }
 
   Widget _createInfo(BuildContext _context) {
-    if (widget._pedidosResponse != null) {
-      List<PedidosResponse> response = widget._pedidosResponse;
+    if (bloc.listAllPedidos != null) {
+      List<PedidosResponse> response = bloc.listAllPedidos;
       response = response.where((element) => element.tipoDoc == "P").toList();
       if (response.length > 0) {
         return _groupPedidos(response, _context);
@@ -81,6 +82,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
       double totalPedido,
       List<PedidosResponse> response) {
     return RefreshIndicator(
+      key: _refreshIndicatorKey,
       onRefresh: () => _callGetLiberaSolpes(),
       child: ListView.separated(
         itemCount: _response.length,
@@ -226,11 +228,13 @@ class _CreatePedidosState extends State<CreatePedidos> {
                                       borderRadius:
                                           new BorderRadius.circular(30.0)),
                                   child: Text('Detalle'),
-                                  onPressed: () {
-                                    Navigator.pushNamed(
+                                  onPressed: () async {
+                                    dynamic res = await Navigator.pushNamed(
                                         _context, DetallePedido.routeName,
                                         arguments:
                                             _response.values.toList()[index]);
+
+                                    if (res == true) _callGetLiberaSolpes();
                                   },
                                 ),
                               ),
@@ -287,12 +291,14 @@ class _CreatePedidosState extends State<CreatePedidos> {
   }
 
   Future<void> _callGetLiberaSolpes() async {
-    PedidosProvider.instance
-        .fetchPedidos(LoginProvider.instance.userEmail)
-        .then((value) {
+    Dialogs.showLoadingDialogMessage(
+        context, "Actualizando pedidos pendientes");
+    bloc.fetchAllPedidos(LoginProvider.instance.userEmail).then((value) {
       setState(() {
-        widget._pedidosResponse = value;
+        Navigator.pop(context);
       });
     });
   }
+
+
 }

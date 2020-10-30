@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rcn_solpe/helpers/Dialogs.dart';
 import 'package:rcn_solpe/models/pedidos_response.dart';
+import 'package:rcn_solpe/providers/login_provider.dart';
 import 'package:rcn_solpe/widgets/solpes/create_pedidos_widget.dart';
 import 'package:rcn_solpe/widgets/solpes/create_solpes.dart';
+import 'package:rcn_solpe/bloc/pedidos_bloc.dart';
 
 class SolpesList extends StatefulWidget {
   static const String routeName = "SolpesList";
@@ -18,7 +22,10 @@ class _SolpesListState extends State<SolpesList> {
     _listPedidosResponse = ModalRoute.of(context).settings.arguments;
     return DefaultTabController(
       length: 2,
-      child: Scaffold(appBar: _createAppBar(), body: _createBody(context)),
+      child: Scaffold(
+          appBar: _createAppBar(),
+          floatingActionButton: _createActionRefresh(),
+          body: _createBody(context)),
     );
   }
 
@@ -54,6 +61,25 @@ class _SolpesListState extends State<SolpesList> {
           ),
           Tab(icon: Icon(Icons.sort), text: "Pedidos"),
         ],
+      ),
+    );
+  }
+
+  Widget _createActionRefresh() {
+    return FloatingActionButton(
+      mini: true,
+      onPressed: () {
+        Dialogs.showLoadingDialogMessage(context, "Actualizando pedidos pendientes");
+        bloc.fetchAllPedidos(LoginProvider.instance.userEmail).then((value) {
+          setState(() {
+            Navigator.pop(context);
+          });
+        });
+      },
+      child: FaIcon(
+        FontAwesomeIcons.syncAlt,
+        color: Colors.white,
+        size: 20,
       ),
     );
   }

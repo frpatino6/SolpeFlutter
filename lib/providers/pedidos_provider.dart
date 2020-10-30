@@ -8,6 +8,8 @@ import 'package:rcn_solpe/providers/dio_provider.dart';
 class PedidosProvider {
   static final PedidosProvider instance = PedidosProvider._();
 
+  PedidosProvider();
+
   PedidosProvider._();
 
   final _pedidosStream = StreamController<List<PedidosResponse>>.broadcast();
