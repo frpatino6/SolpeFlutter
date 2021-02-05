@@ -8,7 +8,6 @@ import 'package:solpe_win/providers/token_provider.dart';
 import 'package:solpe_win/widgets/login/create_background.dart';
 import 'package:solpe_win/widgets/login/create_login_form_input.dart';
 
-
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
@@ -70,7 +69,6 @@ class _LoginPageState extends State<LoginPage> {
             margin: EdgeInsets.symmetric(vertical: 10.0),
             padding: EdgeInsets.symmetric(vertical: 10.0),
             decoration: BoxDecoration(
-
                 borderRadius: BorderRadius.circular(35.0),
                 boxShadow: <BoxShadow>[
                   BoxShadow(

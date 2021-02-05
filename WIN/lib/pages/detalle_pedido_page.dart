@@ -13,7 +13,6 @@ class DetallePedido extends StatefulWidget {
 }
 
 class _DetallePedidoState extends State<DetallePedido> {
-  ScrollController _controller = new ScrollController();
   List<PedidosResponse> _listPedidosResponse;
   double _fontSize = 17;
   double _heightHeader = 0;
@@ -106,7 +105,9 @@ class _DetallePedidoState extends State<DetallePedido> {
             child: Text(
               "TOTAL PEDIDO: ${PedidosProvider.instance.setCurrencyFormat(_totalPedido)}",
               style: TextStyle(
-                  fontSize: 25, color: Colors.deepOrangeAccent, fontStyle: FontStyle.italic),
+                  fontSize: 25,
+                  color: Colors.deepOrangeAccent,
+                  fontStyle: FontStyle.italic),
             ),
           ),
           ButtonBar(
@@ -122,7 +123,8 @@ class _DetallePedidoState extends State<DetallePedido> {
                   ),
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0)),
-                  child: Text('Regresar',style: TextStyle(color: Colors.white)),
+                  child:
+                      Text('Regresar', style: TextStyle(color: Colors.white)),
                   onPressed: () {
                     Navigator.pop(context, false);
                   },
@@ -139,7 +141,7 @@ class _DetallePedidoState extends State<DetallePedido> {
                   ),
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0)),
-                  child: Text('Liberar',style: TextStyle(color: Colors.white)),
+                  child: Text('Liberar', style: TextStyle(color: Colors.white)),
                   onPressed: () {
                     Dialogs.showLoadingDialogMessage(
                         context, "Liberando pedido");
