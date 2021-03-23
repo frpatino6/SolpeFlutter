@@ -79,7 +79,7 @@ class Dialogs {
   static Future<String> showMessageDialog(BuildContext context, String message,
       String title, double _fontSize) async {
     return await showDialog(
-        child: AlertDialog(
+        builder: (_) => new AlertDialog(
           title: new Text(title),
           content: new Text(
             message,
@@ -108,7 +108,7 @@ class Dialogs {
   static Future<String> showMessageDialogWithEvent(BuildContext context, String message,
       String title, double _fontSize, Function onPressed) async {
     return await showDialog(
-        child: AlertDialog(
+        builder: (_) => new AlertDialog(
           title: new Text(title),
           content: new Text(
             message,
@@ -172,7 +172,7 @@ class Dialogs {
   static showMessageDialogE(BuildContext _c, String message) {
     showDialog(
       context: _c,
-      child: new AlertDialog(
+      builder: (_) => new AlertDialog(
         title: Text("GP Tráfico"),
         contentPadding: const EdgeInsets.all(16.0),
         content: Text(message),
