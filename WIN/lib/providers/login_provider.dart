@@ -6,7 +6,7 @@ import 'dio_provider.dart';
 class LoginProvider {
   static final LoginProvider instance = LoginProvider._();
 
-  String userEmail;
+  String? userEmail;
 
   LoginProvider._();
 
@@ -27,7 +27,7 @@ class LoginProvider {
       userEmail = requestLogin.userEmail;
       return _processResponse(response);
     } on DioError catch (e) {
-      throw (e.response.data);
+      throw (e.response!.data);
     }
   }
 

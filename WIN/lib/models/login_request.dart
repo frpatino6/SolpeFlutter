@@ -1,8 +1,8 @@
 class LoginRequest {
-  String userEmail;
-  String userPassword;
-  String accessToken;
-  String platform;
+  String? userEmail;
+  String? userPassword;
+  String? accessToken;
+  String? platform;
 
   LoginRequest(
       {this.userEmail, this.userPassword, this.accessToken, this.platform});

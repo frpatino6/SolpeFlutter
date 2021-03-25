@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CreateDivider extends StatelessWidget {
   const CreateDivider({
-    Key key,
+    Key? key,
      this.heightDivider = 1.2,
   }) : super(key: key);
 

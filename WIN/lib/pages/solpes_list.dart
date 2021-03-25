@@ -16,15 +16,15 @@ class SolpesList extends StatefulWidget {
 }
 
 class _SolpesListState extends State<SolpesList> {
-  List<PedidosResponse> _listPedidosResponse;
+  List<PedidosResponse>? _listPedidosResponse;
 
   @override
   Widget build(BuildContext context) {
-    _listPedidosResponse = ModalRoute.of(context).settings.arguments;
+    _listPedidosResponse = ModalRoute.of(context)!.settings.arguments as List<PedidosResponse>?;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-          appBar: _createAppBar(),
+          appBar: _createAppBar() as PreferredSizeWidget?,
           floatingActionButton: _createActionRefresh(),
           body: _createBody(context)),
     );

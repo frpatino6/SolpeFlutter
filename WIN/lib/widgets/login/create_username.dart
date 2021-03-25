@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CreateUserName extends StatelessWidget {
-  const CreateUserName({Key key, this.usernamecontroller}) : super(key: key);
-  final TextEditingController usernamecontroller;
+  const CreateUserName({Key? key, this.usernamecontroller}) : super(key: key);
+  final TextEditingController? usernamecontroller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -12,7 +12,7 @@ class CreateUserName extends StatelessWidget {
         autofocus: false,
         validator: (value) {
           print(value);
-          if (value.isEmpty) {
+          if (value!.isEmpty) {
             return 'Por favor ingrese el nombre de usuario';
           }
           return null;

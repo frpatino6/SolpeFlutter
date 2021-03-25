@@ -23,7 +23,7 @@ class PedidosProvider {
     _pedidosStream?.close();
   }
 
-  Future<List<PedidosResponse>> fetchPedidos(String user) async {
+  Future<List<PedidosResponse>> fetchPedidos(String? user) async {
     try {
       var dio = Dio();
       Response response;
@@ -37,11 +37,11 @@ class PedidosProvider {
 
       return _processResponse(response);
     } on DioError catch (e) {
-      throw (e.response.data);
+      throw (e.response!.data);
     }
   }
 
-  Future<bool> UpdateSolpeState(String num, int pos) async {
+  Future<bool> UpdateSolpeState(String? num, int? pos) async {
     try {
       var dio = Dio();
       Response response;
@@ -55,11 +55,11 @@ class PedidosProvider {
 
       return _processResponseLibera(response);
     } on DioError catch (e) {
-      throw (e.response.data);
+      throw (e.response!.data);
     }
   }
 
-  Future<bool> UpdatePedidoState(String num) async {
+  Future<bool> UpdatePedidoState(String? num) async {
     try {
       var dio = Dio();
       Response response;
@@ -73,12 +73,12 @@ class PedidosProvider {
 
       return _processResponseLibera(response);
     } on DioError catch (e) {
-      throw (e.response.data);
+      throw (e.response!.data);
     }
   }
 
   List<PedidosResponse> _processResponse(Response response) {
-    List<PedidosResponse> _listResult = new List<PedidosResponse>();
+    List<PedidosResponse> _listResult = <PedidosResponse>[];
     if (response.statusCode == 200) {
       for (dynamic item in response.data) {
         dynamic result = PedidosResponse.fromJson(item);
@@ -86,7 +86,9 @@ class PedidosProvider {
       }
       pedidosSink(_listResult);
       return _listResult;
-    } else {}
+    } else {
+      return _listResult;
+    }
   }
 
   bool _processResponseLibera(Response response) {

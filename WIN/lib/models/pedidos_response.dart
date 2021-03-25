@@ -34,18 +34,18 @@ class PedidosResponse {
     this.valorLiteral,
   });
 
-  double cantidad;
-  String destino;
-  String estado;
-  String mandante;
-  String numero;
-  int posicion;
-  String proveedor;
-  String texto;
-  String tipoDoc;
-  String usuario;
-  double valor;
-  String valorLiteral;
+  double? cantidad;
+  String? destino;
+  String? estado;
+  String? mandante;
+  String? numero;
+  int? posicion;
+  String? proveedor;
+  String? texto;
+  String? tipoDoc;
+  String? usuario;
+  double? valor;
+  String? valorLiteral;
 
   factory PedidosResponse.fromJson(Map<String, dynamic> json) => PedidosResponse(
         cantidad: json["cantidad"].toDouble(),

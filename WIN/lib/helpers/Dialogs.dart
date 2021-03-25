@@ -76,7 +76,7 @@ class Dialogs {
     ]);
   }
 
-  static Future<String> showMessageDialog(BuildContext context, String message,
+  static Future<String?> showMessageDialog(BuildContext context, String message,
       String title, double _fontSize) async {
     return await showDialog(
         builder: (_) => new AlertDialog(
@@ -92,11 +92,10 @@ class Dialogs {
           ),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
-            new FlatButton(
+            new TextButton(
               child: new Text("Aceptar"),
               onPressed: () {
                 Navigator.pop(context);
-                return "";
               },
             ),
           ],
@@ -105,7 +104,7 @@ class Dialogs {
   }
 
 
-  static Future<String> showMessageDialogWithEvent(BuildContext context, String message,
+  static Future<String?> showMessageDialogWithEvent(BuildContext context, String message,
       String title, double _fontSize, Function onPressed) async {
     return await showDialog(
         builder: (_) => new AlertDialog(
@@ -121,12 +120,11 @@ class Dialogs {
           ),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
-            new FlatButton(
+            new TextButton(
               child: new Text("Aceptar"),
               onPressed: () {
                 Navigator.pop(context);
                 onPressed();
-                return "";
               },
             ),
           ],

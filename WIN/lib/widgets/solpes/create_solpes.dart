@@ -8,13 +8,13 @@ import 'package:solpe_win/providers/pedidos_provider.dart';
 
 class CreateSolpes extends StatefulWidget {
   CreateSolpes(
-      {Key key,
-      double fontSizeLabel,
-      double fontSizeInfo,
-      @required List<PedidosResponse> pedidosResponse,
-      @required BuildContext context,
-      @required heightSizedBox,
-      String userName})
+      {Key? key,
+      double? fontSizeLabel,
+      double? fontSizeInfo,
+      required List<PedidosResponse>? pedidosResponse,
+      required BuildContext context,
+      required heightSizedBox,
+      String? userName})
       : _context = context,
         _userName = userName,
         _fontSizeLabel = fontSizeLabel,
@@ -23,9 +23,9 @@ class CreateSolpes extends StatefulWidget {
         super(key: key);
   final BuildContext _context;
   final double _heightSizedBox;
-  final double _fontSizeInfo;
-  final double _fontSizeLabel;
-  final String _userName;
+  final double? _fontSizeInfo;
+  final double? _fontSizeLabel;
+  final String? _userName;
 
   @override
   _CreateSolpesState createState() => _CreateSolpesState();
@@ -47,7 +47,7 @@ class _CreateSolpesState extends State<CreateSolpes> {
 
   Widget _createInfo(BuildContext _context) {
     if (bloc.listAllPedidos != null) {
-      List<PedidosResponse> response = bloc.listAllPedidos;
+      List<PedidosResponse> response = bloc.listAllPedidos!;
       response = response.where((element) => element.tipoDoc == "S").toList();
       if (response.length > 0) {
         return _createListData(_context, response);
@@ -61,6 +61,13 @@ class _CreateSolpesState extends State<CreateSolpes> {
         );
       }
     }
+    return Center(
+      child: Text(
+        "No tiene pendiente pedidos por aprobar",
+        style: TextStyle(fontSize: 20),
+        textAlign: TextAlign.center,
+      ),
+    );
   }
 
   Widget _createListData(
@@ -99,7 +106,7 @@ class _CreateSolpesState extends State<CreateSolpes> {
                                     style: TextStyle(
                                         color: Colors.redAccent,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: widget._fontSizeInfo + 3),
+                                        fontSize: widget._fontSizeInfo! + 3),
                                   ),
                                 ),
                               ),
@@ -322,7 +329,7 @@ class _CreateSolpesState extends State<CreateSolpes> {
     );
   }
 
-  void _callUpdateSolpeState(String numero, int posicion) {
+  void _callUpdateSolpeState(String? numero, int? posicion) {
     Dialogs.showLoadingDialogMessage(context, "Liberando pedido");
     PedidosProvider.instance.UpdateSolpeState(numero, posicion).then((value) {
       Navigator.pop(context);

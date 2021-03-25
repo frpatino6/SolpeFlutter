@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class CreateBackground extends StatelessWidget {
   const CreateBackground({
-    Key key,
-    @required this.size,
+    Key? key,
+    required this.size,
   }) : super(key: key);
   final dynamic size;
 

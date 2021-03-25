@@ -4,11 +4,11 @@ import 'package:solpe_win/widgets/login/create_login_password.dart';
 import 'package:solpe_win/widgets/login/create_username.dart';
 class CreateLoginFormInputs extends StatelessWidget {
   const CreateLoginFormInputs({
-    Key key,
-    @required this.percentage,
-    @required TextEditingController usernameController,
-    @required TextEditingController pwsController,
-    Function onLoginPressed,
+    Key? key,
+    required this.percentage,
+    required TextEditingController usernameController,
+    required TextEditingController pwsController,
+    Function? onLoginPressed,
   })  : _usernameController = usernameController,
         _pwsController = pwsController,
         _onLoginPressed = onLoginPressed,
@@ -17,7 +17,7 @@ class CreateLoginFormInputs extends StatelessWidget {
   final double percentage;
   final TextEditingController _usernameController;
   final TextEditingController _pwsController;
-  final Function _onLoginPressed;
+  final Function? _onLoginPressed;
 
   get formLoginKey => this.formLoginKey;
 
@@ -46,7 +46,7 @@ class CreateLoginFormInputs extends StatelessWidget {
           child: CreateLoginButton(
             userNameController: _usernameController,
             pwsController: _pwsController,
-            onLoginPressed: () => _onLoginPressed(),
+            onLoginPressed: () => _onLoginPressed!(),
           ),
         ),
       ],

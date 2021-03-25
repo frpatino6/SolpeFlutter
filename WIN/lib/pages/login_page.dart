@@ -9,7 +9,7 @@ import 'package:solpe_win/widgets/login/create_background.dart';
 import 'package:solpe_win/widgets/login/create_login_form_input.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -28,8 +28,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // _pwsController.text = "Cualquierc054"; //"GetLiberaSolpes/WILLIAM.CELENO";
-    // _usernameController.text = "frodriguezp"; //"frodriguezp";
+     _pwsController.text = "Cualquierc054"; //"GetLiberaSolpes/WILLIAM.CELENO";
+     _usernameController.text = "frodriguezp"; //"frodriguezp";
     if (kIsWeb) {
       isWeb = true;
       percentage = 0.40;
@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _loginUser(BuildContext _context) {
-    if (!_formKey.currentState.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
     LoginRequest request = new LoginRequest();
@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  _callGetLiberaSolpes(BuildContext _context, String userName) {
+  _callGetLiberaSolpes(BuildContext _context, String? userName) {
     Dialogs.showLoadingDialogMessage(_context, "Consultando solpes y pedidos");
     bloc
         .fetchAllPedidos(userName)

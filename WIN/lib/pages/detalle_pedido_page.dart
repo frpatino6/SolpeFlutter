@@ -13,30 +13,30 @@ class DetallePedido extends StatefulWidget {
 }
 
 class _DetallePedidoState extends State<DetallePedido> {
-  List<PedidosResponse> _listPedidosResponse;
+  List<PedidosResponse>? _listPedidosResponse;
   double _fontSize = 17;
   double _heightHeader = 0;
-  double _totalPedido;
+  double _totalPedido = 0;
 
   @override
   Widget build(BuildContext context) {
     _heightHeader = 40;
     _fontSize = 17;
     _totalPedido = 0;
-    _listPedidosResponse = ModalRoute.of(context).settings.arguments;
+    _listPedidosResponse = ModalRoute.of(context)!.settings.arguments as List<PedidosResponse>?;
 
-    _listPedidosResponse.forEach((element) {
-      _totalPedido += element.valor;
+    _listPedidosResponse!.forEach((element) {
+      _totalPedido += element.valor!;
     });
     return Scaffold(
-      appBar: _createAppBar(context),
+      appBar: _createAppBar(context) as PreferredSizeWidget?,
       body: _createBody(context),
     );
   }
 
   Widget _createAppBar(BuildContext context) {
     return AppBar(
-      title: Text("Detalle Pedido N° ${_listPedidosResponse[0].numero}"),
+      title: Text("Detalle Pedido N° ${_listPedidosResponse![0].numero}"),
     );
   }
 
@@ -99,7 +99,7 @@ class _DetallePedidoState extends State<DetallePedido> {
             ),
           ),
           Column(
-            children: _listPedidosResponse.map(_createDetailPedido).toList(),
+            children: _listPedidosResponse!.map(_createDetailPedido).toList(),
           ),
           Container(
             child: Text(
@@ -146,7 +146,7 @@ class _DetallePedidoState extends State<DetallePedido> {
                     Dialogs.showLoadingDialogMessage(
                         context, "Liberando pedido");
                     PedidosProvider.instance
-                        .UpdatePedidoState(_listPedidosResponse[0].numero)
+                        .UpdatePedidoState(_listPedidosResponse![0].numero)
                         .then((value) {
                       Navigator.pop(context);
                       Navigator.pop(context, true);
@@ -170,7 +170,7 @@ class _DetallePedidoState extends State<DetallePedido> {
             Container(
               width: MediaQuery.of(context).size.width * 0.1,
               child: Text(
-                response.tipoDoc,
+                response.tipoDoc!,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: _fontSize),
               ),
@@ -179,7 +179,7 @@ class _DetallePedidoState extends State<DetallePedido> {
               width: MediaQuery.of(context).size.width * 0.60,
               child: Flexible(
                 child: Text(
-                  response.texto,
+                  response.texto!,
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: _fontSize),
                 ),
@@ -211,8 +211,8 @@ class _DetallePedidoState extends State<DetallePedido> {
               SizedBox(
                 height: 15,
               ),
-              Text(response.destino),
-              Text(response.proveedor),
+              Text(response.destino!),
+              Text(response.proveedor!),
               CreateDivider()
             ],
           ),

@@ -6,22 +6,21 @@ import 'package:solpe_win/pages/detalle_pedido_page.dart';
 import 'package:solpe_win/providers/login_provider.dart';
 import 'package:solpe_win/providers/pedidos_provider.dart';
 
-
 class CreatePedidos extends StatefulWidget {
   final BuildContext _context;
   final double _heightSizedBox;
-  final double _fontSizeInfo;
-  final double _fontSizeLabel;
-  final String _userName;
+  final double? _fontSizeInfo;
+  final double? _fontSizeLabel;
+  final String? _userName;
 
   CreatePedidos(
-      {Key key,
-      double fontSizeLabel,
-      double fontSizeInfo,
-      @required List<PedidosResponse> pedidosResponse,
-      @required BuildContext context,
-      @required heightSizedBox,
-      String userName})
+      {Key? key,
+      double? fontSizeLabel,
+      double? fontSizeInfo,
+      required List<PedidosResponse>? pedidosResponse,
+      required BuildContext context,
+      required heightSizedBox,
+      String? userName})
       : _context = context,
         _userName = userName,
         _fontSizeLabel = fontSizeLabel,
@@ -49,7 +48,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
     );
   }
 
-  void _callUpdateSolpeState(String numero, int posicion) {
+  void _callUpdateSolpeState(String? numero, int? posicion) {
     Dialogs.showLoadingDialogMessage(context, "Liberando pedido");
     PedidosProvider.instance.UpdatePedidoState(numero).then((value) {
       Navigator.pop(context);
@@ -60,7 +59,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
 
   Widget _createInfo(BuildContext _context) {
     if (bloc.listAllPedidos != null) {
-      List<PedidosResponse> response = bloc.listAllPedidos;
+      List<PedidosResponse> response = bloc.listAllPedidos!;
       response = response.where((element) => element.tipoDoc == "P").toList();
       if (response.length > 0) {
         return _groupPedidos(response, _context);
@@ -74,6 +73,13 @@ class _CreatePedidosState extends State<CreatePedidos> {
         );
       }
     }
+    return Center(
+      child: Text(
+        "No tiene pendiente pedidos por aprobar",
+        style: TextStyle(fontSize: 20),
+        textAlign: TextAlign.center,
+      ),
+    );
   }
 
   Widget _createListData(
@@ -117,7 +123,7 @@ class _CreatePedidosState extends State<CreatePedidos> {
                                     style: TextStyle(
                                         color: Colors.redAccent,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: widget._fontSizeInfo + 3),
+                                        fontSize: widget._fontSizeInfo! + 3),
                                   ),
                                 ),
                               ),
@@ -278,14 +284,14 @@ class _CreatePedidosState extends State<CreatePedidos> {
   Widget _groupPedidos(List<PedidosResponse> response, BuildContext _context) {
     var location = (PedidosResponse p) => p.numero;
     double totalPedido = 0;
-    List<PedidosResponse> pedidosGroup = new List<PedidosResponse>();
+    List<PedidosResponse> pedidosGroup = <PedidosResponse>[];
     Map<dynamic, List<PedidosResponse>> _pedidosGroup =
         response.groupingBy(location);
     _pedidosGroup.forEach((k, v) {
       pedidosGroup.add(v.first);
     });
     response.forEach((element) {
-      totalPedido += element.valor * element.cantidad;
+      totalPedido += element.valor! * element.cantidad!;
     });
     return _createListData(
         _context, _pedidosGroup, response.length, totalPedido, response);
@@ -300,6 +306,4 @@ class _CreatePedidosState extends State<CreatePedidos> {
       });
     });
   }
-
-
 }

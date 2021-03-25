@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "992896197095",
+    "project_id": "solpewinsports",
+    "storage_bucket": "solpewinsports.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992896197095:android:400cddf44755b3cf591d42",
+        "android_client_info": {
+          "package_name": "com.solpe.solpe_win"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992896197095-5ve6qdjobniofljkknl40j6sn1b0f37b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBV0NtX8nE7Btua8um1o854p0ITJNhgrGc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992896197095-5ve6qdjobniofljkknl40j6sn1b0f37b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

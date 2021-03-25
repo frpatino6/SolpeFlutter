@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CreateLoginPassword extends StatelessWidget {
-  const CreateLoginPassword({Key key, @required this.pwscontroller})
+  const CreateLoginPassword({Key? key, required this.pwscontroller})
       : super(key: key);
   final TextEditingController pwscontroller;
   @override
@@ -15,7 +15,7 @@ class CreateLoginPassword extends StatelessWidget {
         onChanged: (value) {},
         validator: (value) {
           print(value);
-          if (value.isEmpty) {
+          if (value!.isEmpty) {
             return 'Por favor ingrese la contrasena';
           }
           return null;

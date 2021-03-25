@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class CreateLoginButton extends StatelessWidget {
   CreateLoginButton({
-    @required userNameController,
-    @required pwsController,
-    Key key,
-    Function onLoginPressed,
+    required userNameController,
+    required pwsController,
+    Key? key,
+    Function? onLoginPressed,
   })  : _userNameController = userNameController,
         _pwsController = pwsController,
         _onLoginPressed = onLoginPressed,
@@ -14,7 +14,7 @@ class CreateLoginButton extends StatelessWidget {
 
   final TextEditingController _userNameController;
   final TextEditingController _pwsController;
-  final Function _onLoginPressed;
+  final Function? _onLoginPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class CreateLoginButton extends StatelessWidget {
           borderRadius: new BorderRadius.circular(30.0)),
       child: Text('Ingresar',style: TextStyle(color: Colors.white),),
       onPressed: () {
-        _onLoginPressed();
+        _onLoginPressed!();
       },
     );
   }
